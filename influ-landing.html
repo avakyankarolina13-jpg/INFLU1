@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFLU — Агентство инфлюенс-маркетинга</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --burgundy: #6B1E2A;
+    --burgundy-deep: #4A1219;
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --brown: #2C1F1A;
+    --taupe: #8C7B6E;
+    --light-taupe: #C9B9A9;
+    --charcoal: #2A2520;
+    --grain-opacity: 0.04;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--charcoal);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: var(--grain-opacity);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* TYPOGRAPHY */
+  .serif { font-family: 'Cormorant Garamond', serif; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: normal;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.75;
+    transition: opacity 0.3s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    min-height: 700px;
+    background: var(--burgundy-deep);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 48px 80px;
+    overflow: hidden;
+  }
+
+  .hero-texture {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(107, 30, 42, 0.6) 0%, transparent 70%),
+      linear-gradient(160deg, var(--burgundy-deep) 0%, #3A0F18 50%, #1A0608 100%);
+  }
+
+  /* Leather texture effect */
+  .hero-texture::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.012) 2px,
+        rgba(255,255,255,0.012) 4px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.015) 2px,
+        rgba(0,0,0,0.015) 4px
+      );
+    opacity: 0.8;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--light-taupe);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--light-taupe);
+    opacity: 0.5;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 9vw, 130px);
+    font-weight: 300;
+    line-height: 0.92;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: rgba(245, 240, 232, 0.55);
+  }
+
+  .hero-sub {
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    color: var(--light-taupe);
+    line-height: 1.7;
+    max-width: 420px;
+    opacity: 0.8;
+  }
+
+  .hero-cta {
+    position: absolute;
+    right: 48px;
+    bottom: 80px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 36px;
+    border: 1px solid rgba(245, 240, 232, 0.3);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--cream);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.77,0,0.18,1);
+  }
+
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary:hover { color: var(--burgundy-deep); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .hero-scroll {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--light-taupe);
+    opacity: 0.5;
+  }
+
+  /* STAT BAR */
+  .stat-bar {
+    background: var(--brown);
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .stat-item {
+    padding: 48px 0;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    padding-right: 48px;
+  }
+
+  .stat-item:last-child { border-right: none; padding-left: 48px; padding-right: 0; }
+  .stat-item:nth-child(2) { padding-left: 48px; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    line-height: 1.6;
+  }
+
+  /* MANIFESTO */
+  .manifesto {
+    padding: 140px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .manifesto-left {
+    position: relative;
+  }
+
+  .section-tag {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--taupe);
+  }
+
+  .manifesto-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 4.5vw, 68px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--charcoal);
+  }
+
+  .manifesto-headline em {
+    font-style: italic;
+    color: var(--burgundy);
+  }
+
+  .manifesto-right {
+    padding-top: 80px;
+  }
+
+  .manifesto-body {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--taupe);
+    margin-bottom: 40px;
+    max-width: 440px;
+  }
+
+  .manifesto-body strong {
+    color: var(--charcoal);
+    font-weight: 400;
+  }
+
+  .manifesto-pull {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--burgundy);
+    border-left: 1px solid var(--burgundy);
+    padding-left: 28px;
+    margin-top: 48px;
+  }
+
+  /* SERVICES */
+  .services {
+    background: var(--cream);
+    padding: 120px 48px;
+  }
+
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+    border-bottom: 1px solid var(--light-taupe);
+    padding-bottom: 40px;
+  }
+
+  .services-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    color: var(--charcoal);
+  }
+
+  .services-desc {
+    font-size: 13px;
+    color: var(--taupe);
+    max-width: 300px;
+    line-height: 1.7;
+    text-align: right;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--light-taupe);
+  }
+
+  .service-card {
+    background: var(--cream);
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.5s;
+  }
+
+  .service-card:hover { background: var(--charcoal); }
+
+  .service-card:hover .service-title,
+  .service-card:hover .service-body { color: var(--cream); }
+
+  .service-card:hover .service-num { color: rgba(245,240,232,0.2); }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: rgba(44,31,26,0.08);
+    line-height: 1;
+    margin-bottom: 24px;
+    transition: color 0.5s;
+  }
+
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+    line-height: 1.2;
+    transition: color 0.5s;
+  }
+
+  .service-body {
+    font-size: 12px;
+    color: var(--taupe);
+    line-height: 1.8;
+    transition: color 0.5s;
+  }
+
+  /* PROCESS */
+  .process {
+    padding: 140px 48px;
+    background: var(--warm-white);
+  }
+
+  .process-intro {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    margin-bottom: 100px;
+    align-items: end;
+  }
+
+  .process-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .process-lede {
+    font-size: 15px;
+    color: var(--taupe);
+    line-height: 1.9;
+    padding-top: 16px;
+  }
+
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 48px;
+    padding: 40px 0;
+    border-top: 1px solid rgba(44,31,26,0.1);
+    align-items: start;
+    transition: padding-left 0.4s;
+  }
+
+  .step:last-child { border-bottom: 1px solid rgba(44,31,26,0.1); }
+  .step:hover { padding-left: 16px; }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--taupe);
+    letter-spacing: 0.1em;
+    padding-top: 4px;
+  }
+
+  .step-content {}
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+  }
+
+  .step-body {
+    font-size: 13px;
+    color: var(--taupe);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  /* ANALYTICS */
+  .analytics {
+    background: var(--charcoal);
+    padding: 120px 48px;
+    color: var(--cream);
+  }
+
+  .analytics-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+
+  .analytics-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+
+  .analytics-sub {
+    font-size: 13px;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.8;
+  }
+
+  .metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .metrics-table th {
+    text-align: left;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.15);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    font-weight: 400;
+  }
+
+  .metrics-table td {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+    color: rgba(245,240,232,0.8);
+    vertical-align: middle;
+  }
+
+  .metrics-table tr:hover td {
+    color: var(--cream);
+  }
+
+  .metric-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  .metric-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--cream) !important;
+  }
+
+  .metric-bar-wrap {
+    width: 200px;
+    height: 2px;
+    background: rgba(245,240,232,0.1);
+    position: relative;
+  }
+
+  .metric-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: var(--burgundy);
+  }
+
+  .metric-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid rgba(107,30,42,0.6);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    background: rgba(107,30,42,0.2);
+  }
+
+  /* CTA BLOCK */
+  .cta-block {
+    background: var(--burgundy);
+    padding: 120px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-block::before {
+    content: 'INFLU';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 200px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.05);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .cta-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+  }
+
+  .cta-headline em {
+    font-style: italic;
+    opacity: 0.6;
+  }
+
+  .cta-right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .cta-body {
+    font-size: 14px;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.8;
+  }
+
+  .btn-light {
+    display: inline-block;
+    padding: 18px 44px;
+    background: var(--cream);
+    color: var(--burgundy-deep);
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transition: all 0.4s;
+    align-self: flex-start;
+    font-weight: 500;
+  }
+
+  .btn-light:hover {
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--brown);
+    padding: 64px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+
+  .footer-tagline {
+    font-size: 11px;
+    color: var(--taupe);
+    letter-spacing: 0.1em;
+    line-height: 1.7;
+  }
+
+  .footer-col-title {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 24px;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--cream); }
+
+  .footer-contact p {
+    font-size: 13px;
+    color: var(--taupe);
+    line-height: 2;
+  }
+
+  .footer-contact a {
+    color: var(--light-taupe);
+    text-decoration: none;
+  }
+
+  .footer-bottom {
+    background: var(--brown);
+    padding: 20px 48px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 10px;
+    color: var(--taupe);
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+  }
+
+  /* DIVIDER */
+  .hairline {
+    width: 100%;
+    height: 1px;
+    background: rgba(44,31,26,0.12);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 24px 60px; }
+    .hero-cta { right: 24px; bottom: 60px; }
+    .stat-bar { grid-template-columns: 1fr; padding: 0 24px; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 32px 0; }
+    .stat-item:last-child { border-bottom: none; padding-left: 0; }
+    .stat-item:nth-child(2) { padding-left: 0; }
+    .manifesto { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+    .manifesto-right { padding-top: 0; }
+    .services { padding: 80px 24px; }
+    .services-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .services-desc { text-align: left; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .process { padding: 80px 24px; }
+    .process-intro { grid-template-columns: 1fr; gap: 24px; }
+    .analytics { padding: 80px 24px; }
+    .analytics-header { grid-template-columns: 1fr; gap: 24px; }
+    .metric-bar-wrap { width: 100px; }
+    .cta-block { grid-template-columns: 1fr; padding: 80px 24px; gap: 40px; }
+    footer { grid-template-columns: 1fr; padding: 48px 24px; }
+    .footer-bottom { padding: 20px 24px; flex-direction: column; gap: 8px; }
+  }
+
+  @media (max-width: 560px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 50px 1fr; gap: 0 24px; }
+    .metrics-table .metric-bar-wrap { display: none; }
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">INFLU</a>
+  <ul class="nav-links">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#process">Процесс</a></li>
+    <li><a href="#analytics">Аналитика</a></li>
+    <li><a href="#contact">Контакт</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-texture"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Агентство инфлюенс-маркетинга</div>
+    <h1 class="hero-headline serif">
+      Доверие —<br>
+      <em>самый ценный</em><br>
+      актив бренда
+    </h1>
+    <p class="hero-sub">
+      Мы строим мосты между брендами и их аудиторией через голоса, которым доверяют.
+    </p>
+  </div>
+  <div class="hero-cta">
+    <a href="#contact" class="btn-primary"><span>Обсудить проект</span></a>
+    <span class="hero-scroll">Скролл ↓</span>
+  </div>
+</section>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-item reveal">
+    <div class="stat-num serif">10 000+</div>
+    <div class="stat-label">Реализованных<br>интеграций</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num serif">∞</div>
+    <div class="stat-label">Проверенных<br>инфлюенсеров</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num serif">№1</div>
+    <div class="stat-label">В знании<br>рыночных трендов</div>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-left reveal">
+    <div class="section-tag">О нас</div>
+    <h2 class="manifesto-headline serif">
+      Аудитория<br>
+      устала от<br>
+      <em>рекламы.</em><br>
+      Она верит<br>
+      людям.
+    </h2>
+  </div>
+  <div class="manifesto-right reveal">
+    <p class="manifesto-body">
+      INFLU — это агентство, которое понимает: <strong>настоящий маркетинг начинается там, где заканчивается баннер.</strong> Мы соединяем бренды с инфлюенсерами, чьи слова воспринимаются как личная рекомендация, а не оплаченный пост.
+    </p>
+    <p class="manifesto-body">
+      Наш подход — это глубокая аналитика аудитории, тщательный подбор голосов и <strong>сквозное сопровождение каждой кампании</strong> от брифинга до итоговой таблицы метрик.
+    </p>
+    <blockquote class="manifesto-pull serif">
+      «Мы не размещаем рекламу. Мы создаём истории, которым верят.»
+    </blockquote>
+  </div>
+</section>
+
+<div class="hairline"></div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <h2 class="services-headline serif">Наши услуги</h2>
+    <p class="services-desc">Полный спектр инструментов для работы с инфлюенс-маркетингом — от точечного подбора до комплексного ведения</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num serif">01</div>
+      <div class="service-title serif">Подбор блогеров под ЦА</div>
+      <p class="service-body">Ищем инфлюенсеров, чья аудитория совпадает с вашей — по демографии, интересам и покупательскому поведению.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num serif">02</div>
+      <div class="service-title serif">Кампании «под ключ»</div>
+      <p class="service-body">Полное ведение: от стратегии и скриптов до финальной аналитики. Вы получаете результат — мы берём на себя процесс.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num serif">03</div>
+      <div class="service-title serif">Блог-туры</div>
+      <p class="service-body">Организуем пресс-туры и закрытые мероприятия для создания вирального контента и живых впечатлений от бренда.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num serif">04</div>
+      <div class="service-title serif">Бартер и коммерция</div>
+      <p class="service-body">Подбираем оптимальный формат сотрудничества — от товарного обмена до масштабных рекламных контрактов.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-intro">
+    <div class="reveal">
+      <div class="section-tag">Процесс</div>
+      <h2 class="process-headline serif">Как мы<br>работаем</h2>
+    </div>
+    <div class="reveal">
+      <p class="process-lede">
+        Шесть этапов, каждый из которых — осознанный шаг к результату. Никакого хаоса, никаких скрытых процессов: вы видите и контролируете каждую стадию кампании.
+      </p>
+    </div>
+  </div>
+
+  <div class="process-steps">
+    <div class="step reveal">
+      <div class="step-num serif">I</div>
+      <div class="step-content">
+        <div class="step-title serif">Брифинг и постановка целей</div>
+        <p class="step-body">Погружаемся в ваш продукт, бренд и задачи. Формируем чёткие KPI и ожидаемые результаты — чтобы у каждого участника была единая точка отсчёта.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num serif">II</div>
+      <div class="step-content">
+        <div class="step-title serif">Анализ целевой аудитории</div>
+        <p class="step-body">Детальное исследование ЦА: кто они, где живут онлайн, каким голосам доверяют. Данные, а не интуиция.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num serif">III</div>
+      <div class="step-content">
+        <div class="step-title serif">Разработка скриптов коммуникации</div>
+        <p class="step-body">Создаём tone of voice для каждого инфлюенсера — так, чтобы интеграция звучала органично, а не как рекламная вставка.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num serif">IV</div>
+      <div class="step-content">
+        <div class="step-title serif">Поиск и верификация блогеров</div>
+        <p class="step-body">Проверяем каждого кандидата: реальная аудитория, вовлечённость, репутация, соответствие бренду. Никаких накруток и серых схем.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num serif">V</div>
+      <div class="step-content">
+        <div class="step-title serif">Переговоры и подтверждение</div>
+        <p class="step-body">Ведём все переговоры, согласовываем условия, подписываем договоры. Вы не тратите время на административную работу.</p>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num serif">VI</div>
+      <div class="step-content">
+        <div class="step-title serif">Статистика и аналитика</div>
+        <p class="step-body">По итогам — подробный отчёт с метриками: охват, вовлечённость, CPV, конверсии. Видите, за что платите и что получили.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYTICS -->
+<section class="analytics" id="analytics">
+  <div class="analytics-header">
+    <div class="reveal">
+      <div class="section-tag" style="color: var(--taupe);">Результаты</div>
+      <h2 class="analytics-headline serif">Метрики,<br>которые имеют<br>значение</h2>
+    </div>
+    <div class="reveal">
+      <p class="analytics-sub">Мы работаем с данными с первого дня. После каждой кампании вы получаете исчерпывающую таблицу результатов — прозрачно и без купюр.</p>
+    </div>
+  </div>
+
+  <table class="metrics-table reveal">
+    <thead>
+      <tr>
+        <th>Метрика</th>
+        <th>Среднее значение</th>
+        <th>Показатель</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="metric-name serif">Охват аудитории</span></td>
+        <td><span class="metric-value serif">4.2M+</span></td>
+        <td><div class="metric-bar-wrap"><div class="metric-bar" style="width:85%"></div></div></td>
+        <td><span class="metric-tag">Высокий</span></td>
+      </tr>
+      <tr>
+        <td><span class="metric-name serif">Вовлечённость (ER)</span></td>
+        <td><span class="metric-value serif">6.8%</span></td>
+        <td><div class="metric-bar-wrap"><div class="metric-bar" style="width:68%"></div></div></td>
+        <td><span class="metric-tag">Выше рынка</span></td>
+      </tr>
+      <tr>
+        <td><span class="metric-name serif">Стоимость просмотра (CPV)</span></td>
+        <td><span class="metric-value serif">₽0.8</span></td>
+        <td><div class="metric-bar-wrap"><div class="metric-bar" style="width:92%"></div></div></td>
+        <td><span class="metric-tag">Эффективно</span></td>
+      </tr>
+      <tr>
+        <td><span class="metric-name serif">Конверсия в переходы</span></td>
+        <td><span class="metric-value serif">3.4%</span></td>
+        <td><div class="metric-bar-wrap"><div class="metric-bar" style="width:55%"></div></div></td>
+        <td><span class="metric-tag">Стабильно</span></td>
+      </tr>
+      <tr>
+        <td><span class="metric-name serif">Сохранения контента</span></td>
+        <td><span class="metric-value serif">12%</span></td>
+        <td><div class="metric-bar-wrap"><div class="metric-bar" style="width:78%"></div></div></td>
+        <td><span class="metric-tag">Отличный</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- CTA -->
+<section class="cta-block" id="contact">
+  <div class="reveal">
+    <h2 class="cta-headline serif">
+      Готовы<br>
+      говорить<br>
+      <em>языком</em><br>
+      доверия?
+    </h2>
+  </div>
+  <div class="cta-right reveal">
+    <p class="cta-body">
+      Расскажите о вашем бренде и задачах — мы предложим стратегию, которая работает. Первая консультация бесплатна.
+    </p>
+    <a href="mailto:hello@influ.agency" class="btn-light">Написать нам</a>
+    <p style="font-size:12px; color:rgba(245,240,232,0.35); letter-spacing:0.05em;">
+      hello@influ.agency<br>
+      +7 (999) 000-00-00
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">INFLU</div>
+    <p class="footer-tagline">Агентство инфлюенс-маркетинга.<br>Ключ к сердцам целевой аудитории.</p>
+  </div>
+  <div>
+    <div class="footer-col-title">Навигация</div>
+    <ul class="footer-links">
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#process">Процесс работы</a></li>
+      <li><a href="#analytics">Аналитика</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+  </div>
+  <div class="footer-contact">
+    <div class="footer-col-title">Связаться</div>
+    <p>
+      <a href="mailto:hello@influ.agency">hello@influ.agency</a><br>
+      +7 (999) 000-00-00<br><br>
+      Instagram · Telegram · LinkedIn
+    </p>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span class="footer-copy">© 2025 INFLU. Все права защищены.</span>
+  <span class="footer-copy">Агентство инфлюенс-маркетинга</span>
+</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav color change on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight * 0.8) {
+      nav.style.setProperty('--nav-logo-color', '#2A2520');
+    }
+  });
+
+  // Smooth stagger for stat bar
+  document.querySelectorAll('.stat-bar .reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 120}ms`;
+  });
+
+  // Stagger service cards
+  document.querySelectorAll('.service-card.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 80}ms`;
+  });
+</script>
+</body>
+</html>
